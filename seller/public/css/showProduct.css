@@ -1,0 +1,29 @@
+.product-card
+{
+    display: grid;
+    width: 100%;
+    
+    margin: \0px auto;
+    padding: 40px;
+    background-color: rgb(245, 198, 189);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.product-card div
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.products
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 70%;
+    margin: 100px auto;
+    grid-gap: 40px;
+}
+
+.product-card div p
+{
+    font-size: larger;
+    font-weight: 600;
+}

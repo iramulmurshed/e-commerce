@@ -1,0 +1,17 @@
+.form-login
+{
+    width: 50%;
+    margin: 100px auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 2rem;
+    font-weight: 600;
+   
+}
+
+.form-login input
+{
+    font-size: 28px;
+    font-weight: 600;
+}

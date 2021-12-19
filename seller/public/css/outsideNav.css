@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Fruktur&display=swap');
+.outside-nav {
+    display: flex;
+    flex-direction: row;
+    background-color: #415aa8;
+    padding: 10px 100px;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+.outside-nav p
+{
+    display: inline-block;
+    color: rgb(255, 255, 255);
+    font-weight: 400;
+    font-family: 'Fruktur', cursive;
+    font-size: 48px;
+    padding-top: 8px;
+
+}
+.outside-nav div a
+{
+    display: inline-block;
+    font-size: 32px;
+    padding: 5px 30px;
+    margin: 10px;
+    font-weight: 700;
+}
