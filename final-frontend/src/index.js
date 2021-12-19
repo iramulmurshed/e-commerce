@@ -6,6 +6,8 @@ import axios from "axios";
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Signup from "./seller/signup/Signup";
+import Login from "./seller/login/Login";
+import SellerDashboard from "./seller/sellerDashboard/SellerDashboard";
 
 
 let token = null;
@@ -21,6 +23,8 @@ ReactDOM.render(
    <Router>
      <Switch>
          <Route exact path='/signup'><Signup/></Route>
+         <Route exact path='/login'><Login/></Route>
+         <Route exact path='/dashboard'><SellerDashboard/></Route>
      </Switch>
    </Router>
   </React.StrictMode>,

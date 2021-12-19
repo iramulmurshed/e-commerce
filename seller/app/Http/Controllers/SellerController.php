@@ -6,6 +6,10 @@ use App\Models\Seller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use DateTime;
+use App\Models\Token;
+use Illuminate\Support\Str;
+
 
 class SellerController extends Controller
 {
@@ -28,7 +32,6 @@ class SellerController extends Controller
 
     function viewSellerHomePage()
     {
-
         return view('pages.home');
     }
 
@@ -36,17 +39,14 @@ class SellerController extends Controller
     function profilePage(Request $request)
     {
 
-
         $data = Seller::where('s_id', $request->session()->get('seller')['s_id'])->first();
 
         return view('pages.profile')->with('seller', $data);
-
 
     }
 
     function profileUpdate(Request $request)
     {
-
 
         $validate = $request->validate(
             [
@@ -74,8 +74,8 @@ class SellerController extends Controller
 
             ]
         );
-        $Seller = Seller::where('s_id', $request->session()->get('seller')['s_id'])->first();
 
+        $Seller = Seller::where('s_id', $request->session()->get('seller')['s_id'])->first();
         $Seller->s_name = $request->s_name;
         $Seller->s_password = $request->s_password;
         $Seller->s_phone = $request->s_phone;
@@ -150,34 +150,38 @@ class SellerController extends Controller
 
     function verifyLogin(Request $request)
     {
-        $validate = $request->validate(
-            [
-
-                's_password' => 'required|min:6',
-                's_email' => 'required|email',
-
-            ],
-
-            [
-
-                's_email.required' => 'please enter your email',
-                's_email.email' => 'please enter valid email',
-                's_password.required' => 'please enter your password',
-                's_password.min' => 'password must contain 6 character',
-
-            ]);
+//        $validate = $request->validate(
+//            [
+//
+//                's_password' => 'required|min:6',
+//                's_email' => 'required|email',
+//
+//            ],
+//
+//            [
+//
+//                's_email.required' => 'please enter your email',
+//                's_email.email' => 'please enter valid email',
+//                's_password.required' => 'please enter your password',
+//                's_password.min' => 'password must contain 6 character',
+//
+//            ]);
 
         $data = Seller::where('s_email', $request->s_email)->where('s_password', $request->s_password)->first();
 
         if ($data) {
-            $request->session()->put('seller', ['s_email' => $data->s_email, 's_name' => $data->s_name, 's_id' => $data->s_id]);
-
-            return redirect()->route('home');
+            $api_token = Str::random(64);
+            $token = new Token();
+            $token->userid = $data->s_id;
+            $token->token = $api_token;
+            $token->created_at = new DateTime();
+            $token->save();
+            return $token;
         } else {
             return "not found";
 
         }
-        return redirect()->route('home');
+
     }
 
 

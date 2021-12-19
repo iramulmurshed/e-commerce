@@ -36,7 +36,7 @@ const Signup = () => {
                 console.log(errorMessage);
                 setValidationErrorMessage(errorMessage);
             } else {
-                setRedirectToLogin(<Redirect to="/moderator/login" />);
+                setRedirectToLogin(<Redirect to="/login" />);
             }
         });
     };
@@ -96,6 +96,7 @@ const Signup = () => {
                     onClick={signUpAction}
                 />
             </form>
+            {redirectToLogin}
         </div>
     );
 };
