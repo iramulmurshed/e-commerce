@@ -26,7 +26,7 @@ class ProductController extends Controller
     {
         $data = Product::where('p_id', $request->p_id)->first();
 
-        return view('pages.showSingleProduct')->with('product', $data);
+        return $data;
 
     }
 
@@ -61,7 +61,7 @@ class ProductController extends Controller
             $Product->p_status = "available";
             $Product->s_id = $request->s_id;
             $Product->save();
-            return "product successfully added";
+            return "product successfully updated";
         }
 
     }
@@ -70,7 +70,7 @@ class ProductController extends Controller
     {
         $data = Product::where('p_id', $request->p_id)->first();
         $data->delete();
-        return redirect()->route('show_product');
+        return "product deleted";
     }
 
 

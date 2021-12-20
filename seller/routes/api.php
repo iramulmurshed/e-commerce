@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
@@ -22,3 +23,7 @@ Route::post('/signup', [SellerController::class, 'verifySignup']);
 Route::post('/login', [SellerController::class, 'verifyLogin']);
 Route::post('/add_product', [ProductController::class, 'verifyProduct'])->middleware('sellerApiAuth');
 Route::post('/show_product', [ProductController::class, 'viewProductPage'])->middleware('sellerApiAuth');
+Route::post('/logout', [SellerController::class, 'sellerLogout'])->middleware('sellerApiAuth');
+Route::post('/updateProduct', [ProductController::class, 'updateProduct'])->middleware('sellerApiAuth');
+Route::get('/view_single_product/{p_id}', [ProductController::class, 'showSingleProduct'])->middleware('sellerApiAuth');
+Route::post('/delete_single_product/{p_id}', [ProductController::class, 'deleteProduct'])->middleware('sellerApiAuth');

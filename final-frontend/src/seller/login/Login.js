@@ -11,6 +11,12 @@ const Login = () => {
     const [validationErrorMessage, setValidationErrorMessage] = useState([]);
 
 
+    useEffect(()=>{
+        if(localStorage.getItem('seller')){
+                setRedirectToDashboard(<Redirect to="/dashboard"/>)
+        }
+    })
+
     const loginSubmit = () => {
         let obj = {
             s_email: email,

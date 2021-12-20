@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {Link} from "react-router-dom";
+
 const Product = (props) => {
     const data = props.data;
     return (
@@ -10,6 +12,10 @@ const Product = (props) => {
             <h4>Product Type : {data.p_type}</h4>
             <h4>Product Description : {data.p_des}</h4>
             <h4>product price : {data.p_price}</h4>
+            {/*<UpdateProduct data={data}></UpdateProduct>*/}
+
+          <Link to={{pathname: `update/${data.p_id}`}} ><button>update</button></Link>
+            <Link to={{pathname: `delete/${data.p_id}`}} ><button>delete</button></Link>
         </div>
     );
 };

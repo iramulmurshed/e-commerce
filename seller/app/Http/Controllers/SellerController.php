@@ -185,10 +185,13 @@ class SellerController extends Controller
     }
 
 
-    function sellerLogout()
+    function sellerLogout(Request $request)
     {
-        session()->flush();
-        return redirect()->route('login');
+        $token = $request->header("Authorization");
+        $validToken = Token::where('token', $token)->first();
+        $validToken->expired_at = new DateTime();
+        $validToken->save();
+        return "logout";
     }
 
 

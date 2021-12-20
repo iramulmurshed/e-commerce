@@ -10,6 +10,9 @@ import Login from "./seller/login/Login";
 import SellerDashboard from "./seller/sellerDashboard/SellerDashboard";
 import AddProduct from "./seller/addProduct/AddProduct";
 import ShowProducts from "./seller/showProduct/ShowProducts";
+import Nav from "./seller/nav/Nav";
+import UpdateProduct from "./seller/showProduct/UpdateProduct";
+import DeleteProduct from "./seller/showProduct/DeleteProduct";
 
 
 let token = null;
@@ -26,10 +29,12 @@ ReactDOM.render(
      <Switch>
          <Route exact path='/signup'><Signup/></Route>
          <Route exact path='/login'><Login/></Route>
-         <Route exact path='/dashboard'><SellerDashboard/></Route>
+         <Route exact path='/dashboard'><Nav/><SellerDashboard/></Route>
          <Route exact path="/addproduct"><AddProduct/></Route>
          <Route exact path="/showproducts"><ShowProducts/></Route>
-         <Route exact path="/updateproduct:id"><ShowProducts/></Route>
+         <Route exact path="/update/:id"><UpdateProduct/></Route>
+         <Route exact path="/delete/:id"><DeleteProduct/></Route>
+
      </Switch>
    </Router>
   </React.StrictMode>,
