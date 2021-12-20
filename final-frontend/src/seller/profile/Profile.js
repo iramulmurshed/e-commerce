@@ -58,7 +58,7 @@ const Profile = () => {
 
         const data = {
             s_name: name,
-            s_password: password,
+
             s_phone: phone,
             s_dob: dob,
             s_id: id1,
@@ -98,12 +98,7 @@ const Profile = () => {
                     placeholder="Name"
                 />
                 <h4>Email : {email}</h4>
-                <label>Password: </label>
-                <input
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    type="password"
-                />
+
                 <h4>Gender: {gender}</h4>
                 <label>Birth Date:</label>
                 <input

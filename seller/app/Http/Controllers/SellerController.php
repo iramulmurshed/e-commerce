@@ -51,7 +51,7 @@ class SellerController extends Controller
         $validator = Validator::make($request->all(),
             [
                 's_name' => 'required|min:3|max:25',
-                's_password' => 'required|min:6',
+
                 's_phone' => 'required|numeric',
                 's_dob' => 'required',
 
@@ -63,8 +63,7 @@ class SellerController extends Controller
                 's_name.max' => 'name can contain maximum 25 character',
 
 
-                's_password.required' => 'please enter your password',
-                's_password.min' => 'password must contain 6 character',
+
 
                 's_phone.required' => 'Enter a valid phone number',
                 's_phone.numeric' => 'Only use Numbers',
@@ -82,7 +81,7 @@ class SellerController extends Controller
         else {
             $Seller = Seller::where('s_id', $request->s_id)->first();
             $Seller->s_name = $request->s_name;
-            $Seller->s_password = $request->s_password;
+ 
             $Seller->s_phone = $request->s_phone;
             $Seller->s_dob = $request->s_dob;
             $Seller->save();
@@ -137,7 +136,7 @@ class SellerController extends Controller
 
             $Seller = new Seller();
             $Seller->s_name = $request->s_name;
-            $Seller->s_password = $request->s_password;
+            $Seller->s_password = password_hash($request->s_password,PASSWORD_DEFAULT);
             $Seller->s_phone = $request->s_phone;
             $Seller->s_email = $request->s_email;
             $Seller->s_dob = $request->s_dob;
@@ -174,9 +173,10 @@ class SellerController extends Controller
 //
 //            ]);
 
-        $data = Seller::where('s_email', $request->s_email)->where('s_password', $request->s_password)->first();
+        $data = Seller::where('s_email', $request->s_email)->first();
+        $verify = password_verify($request->s_password, $data->s_password);
 
-        if ($data) {
+        if ($verify) {
             $api_token = Str::random(64);
             $token = new Token();
             $token->userid = $data->s_id;
