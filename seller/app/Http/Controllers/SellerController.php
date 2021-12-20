@@ -39,16 +39,16 @@ class SellerController extends Controller
     function profilePage(Request $request)
     {
 
-        $data = Seller::where('s_id', $request->session()->get('seller')['s_id'])->first();
+        $data = Seller::where('s_id', $request->s_id)->first();
 
-        return view('pages.profile')->with('seller', $data);
+        return $data;
+
 
     }
 
     function profileUpdate(Request $request)
     {
-
-        $validate = $request->validate(
+        $validator = Validator::make($request->all(),
             [
                 's_name' => 'required|min:3|max:25',
                 's_password' => 'required|min:6',
@@ -74,16 +74,23 @@ class SellerController extends Controller
 
             ]
         );
-
-        $Seller = Seller::where('s_id', $request->session()->get('seller')['s_id'])->first();
-        $Seller->s_name = $request->s_name;
-        $Seller->s_password = $request->s_password;
-        $Seller->s_phone = $request->s_phone;
-        $Seller->s_dob = $request->s_dob;
-
-
-        $Seller->save();
-        return redirect()->route('profile');
+        if ($validator->fails()) {
+            return response()->json([
+                "validation_errors" => $validator->messages(),
+            ]);
+        }
+        else {
+            $Seller = Seller::where('s_id', $request->s_id)->first();
+            $Seller->s_name = $request->s_name;
+            $Seller->s_password = $request->s_password;
+            $Seller->s_phone = $request->s_phone;
+            $Seller->s_dob = $request->s_dob;
+            $Seller->save();
+            return response()->json([
+                "status" => 200,
+                "message" => "Seller profile update successful"
+            ]);
+        }
     }
 
 

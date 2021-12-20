@@ -13,6 +13,7 @@ import ShowProducts from "./seller/showProduct/ShowProducts";
 import Nav from "./seller/nav/Nav";
 import UpdateProduct from "./seller/showProduct/UpdateProduct";
 import DeleteProduct from "./seller/showProduct/DeleteProduct";
+import Profile from "./seller/profile/Profile";
 
 
 let token = null;
@@ -34,6 +35,7 @@ ReactDOM.render(
          <Route exact path="/showproducts"><ShowProducts/></Route>
          <Route exact path="/update/:id"><UpdateProduct/></Route>
          <Route exact path="/delete/:id"><DeleteProduct/></Route>
+         <Route exact path='/profile'><Profile/></Route>
 
      </Switch>
    </Router>

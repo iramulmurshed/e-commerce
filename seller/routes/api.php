@@ -27,3 +27,5 @@ Route::post('/logout', [SellerController::class, 'sellerLogout'])->middleware('s
 Route::post('/updateProduct', [ProductController::class, 'updateProduct'])->middleware('sellerApiAuth');
 Route::get('/view_single_product/{p_id}', [ProductController::class, 'showSingleProduct'])->middleware('sellerApiAuth');
 Route::post('/delete_single_product/{p_id}', [ProductController::class, 'deleteProduct'])->middleware('sellerApiAuth');
+Route::get('/profile/{s_id}', [SellerController::class, 'profilePage'])->middleware('sellerApiAuth');
+Route::post('/profileUpdate', [SellerController::class, 'profileUpdate'])->middleware('sellerApiAuth');
