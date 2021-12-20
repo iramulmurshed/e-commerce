@@ -49,6 +49,8 @@ const AddProduct = () => {
                 setValidationErrorMessage(errorMessage);
             } else {
                 console.log("added");
+                setValidationErrorMessage([]);
+                alert("product added");
 
             }
         });
