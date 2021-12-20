@@ -29,6 +29,7 @@ ReactDOM.render(
          <Route exact path='/dashboard'><SellerDashboard/></Route>
          <Route exact path="/addproduct"><AddProduct/></Route>
          <Route exact path="/showproducts"><ShowProducts/></Route>
+         <Route exact path="/updateproduct:id"><ShowProducts/></Route>
      </Switch>
    </Router>
   </React.StrictMode>,

@@ -41,6 +41,7 @@ class ProductController extends Controller
                 'p_type' => 'required|min:3|max:25',
                 'p_des' => 'required|min:10|max:250',
                 'p_price' => 'required|numeric',
+                'p_status' => 'required',
 
 
             ]
