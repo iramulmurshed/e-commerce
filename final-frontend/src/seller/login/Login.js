@@ -8,6 +8,7 @@ const Login = () => {
     let [email, setEmail] = useState("");
     let [password, setPassword] = useState("");
     let [redirectToDashboard, setRedirectToDashboard] = useState("");
+    const [validationErrorMessage, setValidationErrorMessage] = useState([]);
 
 
     const loginSubmit = () => {

@@ -4,15 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
     //
     function viewProductPage(Request $request)
     {
-        $data = Product::where('s_id', $request->session()->get('seller')['s_id'])->get();
-
-        return view('pages.showProduct')->with('products', $data);
+        $data = Product::where('s_id', $request->s_id)->get();
+        return $data;
     }
 
     function addSellerProductPage()
@@ -33,7 +33,7 @@ class ProductController extends Controller
     function updateProduct(Request $request)
     {
 
-        $validate = $request->validate(
+        $validator = Validator::make($request->all(),
             [
 
 
@@ -46,18 +46,22 @@ class ProductController extends Controller
             ]
 
         );
+        if ($validator->fails()) {
+            return response()->json([
+                "validation_errors" => $validator->messages(),
+            ]);
+        } else {
 
-        $Product = Product::where('p_id', $request->p_id)->first();
-
-        $Product->p_name = $request->p_name;
-
-        $Product->p_type = $request->p_type;
-        $Product->p_des = $request->p_des;
-        $Product->p_price = $request->p_price;
-        $Product->p_status = "available";
-        $Product->s_id = $request->session()->get('seller')['s_id'];
-        $Product->save();
-        return redirect()->route('show_product');
+            $Product = Product::where('p_id', $request->p_id)->first();
+            $Product->p_name = $request->p_name;
+            $Product->p_type = $request->p_type;
+            $Product->p_des = $request->p_des;
+            $Product->p_price = $request->p_price;
+            $Product->p_status = "available";
+            $Product->s_id = $request->s_id;
+            $Product->save();
+            return "product successfully added";
+        }
 
     }
 
@@ -73,7 +77,7 @@ class ProductController extends Controller
     {
 
 
-        $validate = $request->validate(
+        $validator = Validator::make($request->all(),
             [
                 'p_name' => 'required|min:3|max:25',
                 'p_type' => 'required|min:3|max:25',
@@ -85,16 +89,22 @@ class ProductController extends Controller
 
         );
 
+        if ($validator->fails()) {
+            return response()->json([
+                "validation_errors" => $validator->messages(),
+            ]);
+        } else {
 
-        $Product = new Product();
-        $Product->p_name = $request->p_name;
-        $Product->p_type = $request->p_type;
-        $Product->p_des = $request->p_des;
-        $Product->p_price = $request->p_price;
-        $Product->p_status = "available";
-        $Product->s_id = $request->session()->get('seller')['s_id'];
-        $Product->save();
-        return redirect()->route('home');
+            $Product = new Product();
+            $Product->p_name = $request->p_name;
+            $Product->p_type = $request->p_type;
+            $Product->p_des = $request->p_des;
+            $Product->p_price = $request->p_price;
+            $Product->p_status = "available";
+            $Product->s_id = $request->s_id;
+            $Product->save();
+            return "product successfully added";
+        }
     }
 
 }
