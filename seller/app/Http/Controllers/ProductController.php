@@ -101,7 +101,7 @@ class ProductController extends Controller
             $Product->p_type = $request->p_type;
             $Product->p_des = $request->p_des;
             $Product->p_price = $request->p_price;
-            $Product->p_status = "available";
+            $Product->p_status =$request->p_status;
             $Product->s_id = $request->s_id;
             $Product->save();
             return "product successfully added";

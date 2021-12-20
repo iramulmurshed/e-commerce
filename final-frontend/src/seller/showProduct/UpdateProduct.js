@@ -26,7 +26,7 @@ const UpdateProduct = () => {
             .then((res) => {
                 let p=res.data;
                 setProductName(p.p_name);
-                setProductType(p.p_price);
+                setProductType(p.p_type);
                 setProductDescription(p.p_des);
                 setProductPrice(p.p_price);
                 setProductStatus(p.p_status);
