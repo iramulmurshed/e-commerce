@@ -6,23 +6,22 @@ import ErrorMessage from "../signup/ErrorMessage";
 
 const AddProduct = () => {
 
-    let [productName,setProductName]=useState("");
-    let [productType,setProductType]=useState("");
-    let [productDescription,setProductDescription]=useState("");
-    let [productPrice,setProductPrice]=useState("");
+    let [productName, setProductName] = useState("");
+    let [productType, setProductType] = useState("");
+    let [productDescription, setProductDescription] = useState("");
+    let [productPrice, setProductPrice] = useState("");
     let [redirectToLogin, setRedirectToLogin] = useState("");
-    let [productStatus,setProductStatus]=useState("");
+    let [productStatus, setProductStatus] = useState("");
     const [validationErrorMessage, setValidationErrorMessage] = useState([]);
 
-    useEffect(()=>{
+    useEffect(() => {
         if (!localStorage.getItem('seller')) {
             setRedirectToLogin(<Redirect to="/login"/>)
         }
     })
 
-    let addProduct=()=>
-    {
-        let seller=JSON.parse(localStorage.getItem('seller'))
+    let addProduct = () => {
+        let seller = JSON.parse(localStorage.getItem('seller'))
         console.log(seller.access_token)
         const data = {
             p_name: productName,
@@ -31,7 +30,6 @@ const AddProduct = () => {
             p_price: productPrice,
             p_status: productStatus,
             s_id: seller.userId,
-
 
 
         };
@@ -60,8 +58,8 @@ const AddProduct = () => {
         <div>
             {redirectToLogin}
             <ErrorMessage messeges={validationErrorMessage}/>
-            <form>
-                <div>
+            <form >
+                <div className="d-flex w-50 mx-auto flex-column mt-5">
 
                     <p>Product name:</p>
                     <input
@@ -112,7 +110,7 @@ const AddProduct = () => {
                     </select>
 
 
-                    <input type="button" onClick={addProduct} value="add product"/>
+                    <input type="button" className="btn btn-success my-3" onClick={addProduct} value="add product"/>
                 </div>
 
             </form>

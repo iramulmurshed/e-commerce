@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import {Link, Redirect} from "react-router-dom";
 import axios from "axios";
 import {useParams} from "react-router-dom";
 import ErrorMessage from "../signup/ErrorMessage";
 
 const UpdateProduct = () => {
-    let data=useParams();
-    let [productId,setProductId]=useState("");
-    let [productName,setProductName]=useState("");
-    let [productType,setProductType]=useState("");
-    let [productDescription,setProductDescription]=useState("");
-    let [productPrice,setProductPrice]=useState("");
-    let [productStatus,setProductStatus]=useState("");
+    let data = useParams();
+    let [productId, setProductId] = useState("");
+    let [productName, setProductName] = useState("");
+    let [productType, setProductType] = useState("");
+    let [productDescription, setProductDescription] = useState("");
+    let [productPrice, setProductPrice] = useState("");
+    let [productStatus, setProductStatus] = useState("");
     const [validationErrorMessage, setValidationErrorMessage] = useState([]);
     let [redirectToLogin, setRedirectToLogin] = useState("");
 
@@ -20,11 +20,11 @@ const UpdateProduct = () => {
         if (!localStorage.getItem('seller')) {
             setRedirectToLogin(<Redirect to="/login"/>)
         }
-        let url= `/view_single_product/${data.id}`
+        let url = `/view_single_product/${data.id}`
         axios
             .get(`/view_single_product/${data.id}`)
             .then((res) => {
-                let p=res.data;
+                let p = res.data;
                 setProductName(p.p_name);
                 setProductType(p.p_type);
                 setProductDescription(p.p_des);
@@ -38,9 +38,8 @@ const UpdateProduct = () => {
             });
     }, []);
 
-    let updateProduct=()=>
-    {
-        let seller=JSON.parse(localStorage.getItem('seller'))
+    let updateProduct = () => {
+        let seller = JSON.parse(localStorage.getItem('seller'))
         console.log(seller.access_token)
 
         const data = {
@@ -79,7 +78,7 @@ const UpdateProduct = () => {
             {redirectToLogin}
             <ErrorMessage messeges={validationErrorMessage}/>
             <form>
-                <div>
+                <div className="d-flex flex-column w-50 mx-auto m-5">
 
                     <p>Product name:</p>
                     <input
@@ -99,7 +98,7 @@ const UpdateProduct = () => {
 
 
                     <p>Product description:</p>
-                    <input
+                    <textarea
                         value={productDescription}
                         onChange={(e) => setProductDescription(e.target.value)}
                         type="text"
@@ -130,7 +129,7 @@ const UpdateProduct = () => {
                     </select>
 
 
-                    <input type="button" onClick={updateProduct} value="update"/>
+                    <input className="btn btn-primary mt-3" type="button" onClick={updateProduct} value="update"/>
                 </div>
 
             </form>

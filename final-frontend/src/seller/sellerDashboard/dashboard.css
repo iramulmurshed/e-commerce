@@ -1,0 +1,22 @@
+.action-container{
+    background-color: #accbee;
+    margin-top: 100px;
+    padding-right: 55px;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    box-shadow: rgba(158, 190, 225, 0.2) 0px 8px 24px;
+
+}
+#bt-text1{
+    font-size: 24px;
+    font-weight: 700;
+}
+#bt-text2{
+    font-size: 24px;
+    font-weight: 700;
+}
+#bt-text3{
+    font-size: 24px;
+    font-weight: 700;
+}

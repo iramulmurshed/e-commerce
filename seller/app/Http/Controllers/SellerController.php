@@ -63,8 +63,6 @@ class SellerController extends Controller
                 's_name.max' => 'name can contain maximum 25 character',
 
 
-
-
                 's_phone.required' => 'Enter a valid phone number',
                 's_phone.numeric' => 'Only use Numbers',
 
@@ -77,11 +75,10 @@ class SellerController extends Controller
             return response()->json([
                 "validation_errors" => $validator->messages(),
             ]);
-        }
-        else {
+        } else {
             $Seller = Seller::where('s_id', $request->s_id)->first();
             $Seller->s_name = $request->s_name;
- 
+
             $Seller->s_phone = $request->s_phone;
             $Seller->s_dob = $request->s_dob;
             $Seller->save();
@@ -136,7 +133,7 @@ class SellerController extends Controller
 
             $Seller = new Seller();
             $Seller->s_name = $request->s_name;
-            $Seller->s_password = password_hash($request->s_password,PASSWORD_DEFAULT);
+            $Seller->s_password = password_hash($request->s_password, PASSWORD_DEFAULT);
             $Seller->s_phone = $request->s_phone;
             $Seller->s_email = $request->s_email;
             $Seller->s_dob = $request->s_dob;
@@ -156,38 +153,44 @@ class SellerController extends Controller
 
     function verifyLogin(Request $request)
     {
-//        $validate = $request->validate(
-//            [
-//
-//                's_password' => 'required|min:6',
-//                's_email' => 'required|email',
-//
-//            ],
-//
-//            [
-//
-//                's_email.required' => 'please enter your email',
-//                's_email.email' => 'please enter valid email',
-//                's_password.required' => 'please enter your password',
-//                's_password.min' => 'password must contain 6 character',
-//
-//            ]);
+        $validator = Validator::make($request->all(),
+            [
 
-        $data = Seller::where('s_email', $request->s_email)->first();
-        $verify = password_verify($request->s_password, $data->s_password);
+                's_password' => 'required|min:6',
+                's_email' => 'required|email',
 
-        if ($verify) {
-            $api_token = Str::random(64);
-            $token = new Token();
-            $token->userid = $data->s_id;
-            $token->token = $api_token;
-            $token->created_at = new DateTime();
-            $token->save();
-            return $token;
+            ],
+
+            [
+
+                's_email.required' => 'please enter your email',
+                's_email.email' => 'please enter valid email',
+                's_password.required' => 'please enter your password',
+                's_password.min' => 'password must contain 6 character',
+
+            ]);
+        if ($validator->fails()) {
+            return response()->json([
+                "validation_errors" => $validator->messages(),
+            ]);
         } else {
-            return "not found";
+            $data = Seller::where('s_email', $request->s_email)->first();
+            $verify = password_verify($request->s_password, $data->s_password);
 
+            if ($verify) {
+                $api_token = Str::random(64);
+                $token = new Token();
+                $token->userid = $data->s_id;
+                $token->token = $api_token;
+                $token->created_at = new DateTime();
+                $token->save();
+                return $token;
+            } else {
+                return "not found";
+
+            }
         }
+
 
     }
 

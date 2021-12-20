@@ -13,20 +13,20 @@ const ShowProducts = () => {
     useEffect(() => {
         if (!localStorage.getItem('seller')) {
             setRedirectToLogin(<Redirect to="/login"/>)
-        }else{
-        let seller = JSON.parse(localStorage.getItem('seller'))
-        console.log(seller.access_token)
-        const data = {
-            s_id: seller.userId,
-        }
-        axios
-            .post("/show_product",data)
-            .then((res) => {
-                setProductList(res.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        } else {
+            let seller = JSON.parse(localStorage.getItem('seller'))
+            console.log(seller.access_token)
+            const data = {
+                s_id: seller.userId,
+            }
+            axios
+                .post("/show_product", data)
+                .then((res) => {
+                    setProductList(res.data);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         }
     }, []);
 
@@ -44,14 +44,19 @@ const ShowProducts = () => {
     return (
         <div>
             {redirectToLogin}
-            <SearchProduct list={productList}/>
+            <div className="d-flex m-5">
 
-            <h1>All posted Product</h1>
-            <Products list={productList}/>
+                <div className="p-5 w-100">
+                    <h1>All posted Product</h1>
+                    <Products list={productList}/>
+                </div>
+                <div className="p-5 w-100">
+                    <SearchProduct list={productList}/>
+                </div>
+            </div>
         </div>
     );
 };
-
 
 
 export default ShowProducts;

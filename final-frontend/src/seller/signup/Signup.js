@@ -51,7 +51,7 @@ const Signup = () => {
         <div>
             {redirectToDashboard}
             <ErrorMessage messeges={validationErrorMessage}/>
-            <form>
+            <form className="w-50 d-flex mx-auto my-5 flex-column">
                 <label>Full Name: </label>
                 <input
                     value={name}

@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from "axios";
 import ErrorMessage from "../signup/ErrorMessage";
 import {Redirect} from "react-router-dom";
+import "./profile.css"
 
 const Profile = () => {
 
@@ -86,10 +87,10 @@ const Profile = () => {
 
 
     return (
-        <div>
+        <div className="my-5">
             {redirectToLogin}
             <ErrorMessage messeges={validationErrorMessage}/>
-            <form>
+            <form className="d-flex flex-column w-50 mx-auto my-5">
                 <label>Full Name: </label>
                 <input
                     value={name}
@@ -113,7 +114,7 @@ const Profile = () => {
                     type="text"
                     placeholder="Phone Number"
                 />
-                <input type="button" onClick={updateProfile} value="update"/>
+                <input type="button" className="btn btn-primary my-3" onClick={updateProfile} value="update"/>
             </form>
         </div>
     );
