@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {Redirect} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 const SellerDashboard = () => {
+
 
 
     let [redirectToLogin,setRedirectToLogin]=useState("");
@@ -16,7 +17,9 @@ const SellerDashboard = () => {
     return (
         <div>
             {redirectToLogin}
-            <h1>Seller Dashboard</h1>
+            <Link to="/showproducts"><button className="btn btn-primary">Show All Product</button></Link>
+            <Link to="/addproduct"><button className="btn btn-primary">Add New Product</button></Link>
+            <Link to="/profile"><button className="btn btn-primary">View Profile</button></Link>
         </div>
     );
 };

@@ -13,9 +13,13 @@ const UpdateProduct = () => {
     let [productPrice,setProductPrice]=useState("");
     let [productStatus,setProductStatus]=useState("");
     const [validationErrorMessage, setValidationErrorMessage] = useState([]);
+    let [redirectToLogin, setRedirectToLogin] = useState("");
 
 
     useEffect(() => {
+        if (!localStorage.getItem('seller')) {
+            setRedirectToLogin(<Redirect to="/login"/>)
+        }
         let url= `/view_single_product/${data.id}`
         axios
             .get(`/view_single_product/${data.id}`)
@@ -72,6 +76,7 @@ const UpdateProduct = () => {
 
     return (
         <div>
+            {redirectToLogin}
             <ErrorMessage messeges={validationErrorMessage}/>
             <form>
                 <div>

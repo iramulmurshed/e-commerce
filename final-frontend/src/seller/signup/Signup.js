@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import axios from "axios";
 import {Redirect} from "react-router-dom";
 import ErrorMessage from "./ErrorMessage";
+
 
 const Signup = () => {
     const [name, setName] = useState("");
@@ -12,7 +13,12 @@ const Signup = () => {
     const [phone, setPhone] = useState("");
     const [validationErrorMessage, setValidationErrorMessage] = useState([]);
     const [redirectToLogin, setRedirectToLogin] = useState("");
-
+    let [redirectToDashboard, setRedirectToDashboard] = useState("");
+    useEffect(()=>{
+        if(localStorage.getItem('seller')){
+            setRedirectToDashboard(<Redirect to="/dashboard"/>)
+        }
+    })
     const signUpAction = () => {
         const data = {
             s_name: name,
@@ -43,6 +49,7 @@ const Signup = () => {
 
     return (
         <div>
+            {redirectToDashboard}
             <ErrorMessage messeges={validationErrorMessage}/>
             <form>
                 <label>Full Name: </label>

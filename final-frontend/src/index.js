@@ -14,6 +14,9 @@ import Nav from "./seller/nav/Nav";
 import UpdateProduct from "./seller/showProduct/UpdateProduct";
 import DeleteProduct from "./seller/showProduct/DeleteProduct";
 import Profile from "./seller/profile/Profile";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+import OutNav from "./seller/nav/OutNav";
 
 
 let token = null;
@@ -28,22 +31,18 @@ ReactDOM.render(
   <React.StrictMode>
    <Router>
      <Switch>
-         <Route exact path='/signup'><Signup/></Route>
-         <Route exact path='/login'><Login/></Route>
+         <Route exact path='/signup'><OutNav/><Signup/></Route>
+         <Route exact path='/login'><OutNav/><Login/></Route>
          <Route exact path='/dashboard'><Nav/><SellerDashboard/></Route>
-         <Route exact path="/addproduct"><AddProduct/></Route>
-         <Route exact path="/showproducts"><ShowProducts/></Route>
-         <Route exact path="/update/:id"><UpdateProduct/></Route>
-         <Route exact path="/delete/:id"><DeleteProduct/></Route>
-         <Route exact path='/profile'><Profile/></Route>
-
+         <Route exact path="/addproduct"><Nav/><AddProduct/></Route>
+         <Route exact path="/showproducts"><Nav/><ShowProducts/></Route>
+         <Route exact path="/update/:id"><Nav/><UpdateProduct/></Route>
+         <Route exact path="/delete/:id"><Nav/><DeleteProduct/></Route>
+         <Route exact path='/profile'><Nav/><Profile/></Route>
      </Switch>
    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

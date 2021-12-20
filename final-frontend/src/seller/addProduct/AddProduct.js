@@ -3,14 +3,23 @@ import axios from "axios";
 import {Redirect} from "react-router-dom";
 import ErrorMessage from "../signup/ErrorMessage";
 
+
 const AddProduct = () => {
 
     let [productName,setProductName]=useState("");
     let [productType,setProductType]=useState("");
     let [productDescription,setProductDescription]=useState("");
     let [productPrice,setProductPrice]=useState("");
+    let [redirectToLogin, setRedirectToLogin] = useState("");
     let [productStatus,setProductStatus]=useState("");
     const [validationErrorMessage, setValidationErrorMessage] = useState([]);
+
+    useEffect(()=>{
+        if (!localStorage.getItem('seller')) {
+            setRedirectToLogin(<Redirect to="/login"/>)
+        }
+    })
+
     let addProduct=()=>
     {
         let seller=JSON.parse(localStorage.getItem('seller'))
@@ -47,6 +56,7 @@ const AddProduct = () => {
 
     return (
         <div>
+            {redirectToLogin}
             <ErrorMessage messeges={validationErrorMessage}/>
             <form>
                 <div>

@@ -7,8 +7,13 @@ import SearchProduct from "./SearchProduct";
 
 const ShowProducts = () => {
     const [productList, setProductList] = useState([]);
+    let [redirectToLogin, setRedirectToLogin] = useState("");
+
 
     useEffect(() => {
+        if (!localStorage.getItem('seller')) {
+            setRedirectToLogin(<Redirect to="/login"/>)
+        }else{
         let seller = JSON.parse(localStorage.getItem('seller'))
         console.log(seller.access_token)
         const data = {
@@ -22,6 +27,7 @@ const ShowProducts = () => {
             .catch((err) => {
                 console.log(err);
             });
+        }
     }, []);
 
     // useEffect(()=>{
@@ -37,7 +43,7 @@ const ShowProducts = () => {
 
     return (
         <div>
-
+            {redirectToLogin}
             <SearchProduct list={productList}/>
 
             <h1>All posted Product</h1>

@@ -1,8 +1,10 @@
-import React,{useState,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from "axios";
 import ErrorMessage from "../signup/ErrorMessage";
+import {Redirect} from "react-router-dom";
 
 const Profile = () => {
+
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [dob, setDoB] = useState("");
@@ -15,37 +17,41 @@ const Profile = () => {
 
     const [validationErrorMessage, setValidationErrorMessage] = useState([]);
 
+    let [redirectToLogin, setRedirectToLogin] = useState("");
+
+
     useEffect(() => {
-        let obj = JSON.parse(localStorage.getItem('seller'));
-        let id = obj.userId;
-        let url= `/profile/${id}`
-        console.log(url);
-        axios
-            .get(url)
-            .then((res) => {
-                let p=res.data;
-               setName(p.s_name);
-                setPassword(p.s_password);
-                setDoB(p.s_dob);
-                setPhone(p.s_phone);
-                setEmail(p.s_email);
-                setGender(p.s_gender);
-                console.log(p);
+        if (!localStorage.getItem('seller')) {
+            setRedirectToLogin(<Redirect to="/login"/>)
+        } else {
+            console.log("hello");
+            let obj = JSON.parse(localStorage.getItem('seller'));
+            let id = obj.userId;
+            let url = `/profile/${id}`
+            console.log(url);
+            axios
+                .get(url)
+                .then((res) => {
+                    let p = res.data;
+                    setName(p.s_name);
+                    setPassword(p.s_password);
+                    setDoB(p.s_dob);
+                    setPhone(p.s_phone);
+                    setEmail(p.s_email);
+                    setGender(p.s_gender);
+                    console.log(p);
 
 
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
     }, []);
 
 
+    let updateProfile = () => {
 
-
-
-
-    let updateProfile=()=>
-    {
 
         let obj1 = JSON.parse(localStorage.getItem('seller'));
         let id1 = obj1.userId;
@@ -55,7 +61,7 @@ const Profile = () => {
             s_password: password,
             s_phone: phone,
             s_dob: dob,
-            s_id:id1,
+            s_id: id1,
         };
 
         console.log(data);
@@ -79,12 +85,9 @@ const Profile = () => {
     }
 
 
-
-
-
-
     return (
         <div>
+            {redirectToLogin}
             <ErrorMessage messeges={validationErrorMessage}/>
             <form>
                 <label>Full Name: </label>
@@ -94,7 +97,7 @@ const Profile = () => {
                     type="text"
                     placeholder="Name"
                 />
-                <h4>Email :  {email}</h4>
+                <h4>Email : {email}</h4>
                 <label>Password: </label>
                 <input
                     value={password}
@@ -120,9 +123,6 @@ const Profile = () => {
         </div>
     );
 };
-
-
-
 
 
 export default Profile;
