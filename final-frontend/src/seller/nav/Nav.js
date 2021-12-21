@@ -8,25 +8,48 @@ const Nav = () => {
     let [name, setName] = useState("")
     // useEffect(() => {
 
+    let [redirectToLogin, setRedirectToLogin] = useState("");
+    useEffect(() => {
+        if (!localStorage.getItem('seller')) {
+            setRedirectToLogin(<Redirect to="/login"/>)
+        }
+        else {
+            let obj = JSON.parse(localStorage.getItem('seller'));
+            let id = obj.userId;
+            let url = `/profile/${id}`
+            console.log(url);
+            axios
+                .get(url)
+                .then((res) => {
+                    let p = res.data;
+                    setName(p.s_name);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
 
-    let obj = JSON.parse(localStorage.getItem('seller'));
-    let id = obj.userId;
-    let url = `/profile/${id}`
-    console.log(url);
-    axios
-        .get(url)
-        .then((res) => {
-            let p = res.data;
-            setName(p.s_name);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+        }
 
-    // }, []);
+    }, [])
+    // let obj = JSON.parse(localStorage.getItem('seller'));
+    // let id = obj.userId;
+    // let url = `/profile/${id}`
+    // console.log(url);
+    // axios
+    //     .get(url)
+    //     .then((res) => {
+    //         let p = res.data;
+    //         setName(p.s_name);
+    //     })
+    //     .catch((err) => {
+    //         console.log(err);
+    //     });
+    //
+    // // }, []);
     return (
 
         <div className="position-sticky top-0">
+            {redirectToLogin}
             <div className="d-flex justify-content-evenly s-nav bg-opacity-100 p-2">
                 <h1 className="text-center text-color mx-4 text-uppercase">
                     E-SHOP
