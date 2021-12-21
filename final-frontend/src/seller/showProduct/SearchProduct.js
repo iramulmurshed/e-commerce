@@ -6,6 +6,11 @@ const SearchProduct = (props) => {
     const [nameFilterValue, setNameFilterValue] = useState("");
     const [filteredProduct, setFilterdProduct] = useState([]);
 
+    const [a, setA] = useState();
+    const [o, setO] = useState();
+    const [u, setU] = useState();
+
+
     useEffect(() => {
         let pList = [];
         props.list.map(
